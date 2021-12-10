@@ -11,7 +11,11 @@ const databasePath = path.join(__dirname, "userData.db");
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 let database = null;
 
@@ -31,6 +35,27 @@ const initializeDbAndServer = async () => {
 };
 
 initializeDbAndServer();
+
+const checkToken = (req, res, nxt) => {
+  let jwtToken;
+  const authHeader = req.headers.authorization;
+  if (authHeader !== undefined) {
+    jwtToken = authHeader.split(" ")[1];
+  }
+  if (jwtToken === undefined) {
+    res.status(401);
+    res.send("Invalid JWT Token");
+  } else {
+    jwt.verify(jwtToken, "MY_SECRET_TOKEN", async (error, payload) => {
+      if (error) {
+        res.status(401);
+        res.send("Invalid JWT Token");
+      } else {
+        nxt();
+      }
+    });
+  }
+};
 
 const validatePassword = (password) => {
   return password.length > 4;
@@ -94,11 +119,10 @@ app.post("/login", async (request, response) => {
   }
 });
 
-app.post("/users/", async (request, response) => {
+app.post("/users/", checkToken, async (request, response) => {
   const userDetails = request.body;
   const values = userDetails.map(
-    (each) =>
-      `('${each.user_id}', '${each.id}', '${each.title}','${each.body}')`
+    (each) => `('${each.userId}', '${each.id}', '${each.title}','${each.body}')`
   );
 
   const valuesString = values.join(",");
@@ -112,6 +136,13 @@ app.post("/users/", async (request, response) => {
   const dbResponse = await db.run(addUserQuery);
   const ItemId = dbResponse.lastID;
   response.send({ ItemId: ItemId });
+});
+
+app.get("/users/", checkToken, async (req, res) => {
+  const getFromDatabase = await database.all(`
+    SELECT * FROM userData
+    `);
+  res.send({ getFromDatabase });
 });
 
 module.exports = app;
