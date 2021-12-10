@@ -84,7 +84,7 @@ app.post("/login", async (request, response) => {
       response.send(databaseUser);
     } else {
       response.status(400);
-      response.send("Invalid password");
+      response.send(databaseUser.error_msg);
     }
   }
 });
