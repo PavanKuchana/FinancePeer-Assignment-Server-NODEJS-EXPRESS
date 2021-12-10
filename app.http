@@ -1,0 +1,23 @@
+POST http://localhost:6000/register
+Content-Type: application/json
+
+{
+  "username": "david",
+  "name": "david miller",
+  "password": "the_miller@23",
+  "gender": "male",
+  "location": "bangalore"
+}
+
+###
+
+POST http://localhost:6000/login
+Content-Type: application/json
+
+{
+  "username": "david",
+  "password": "the_miller@23"
+}
+
+
+###
