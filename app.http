@@ -25,13 +25,13 @@ Content-Type: application/json
 
 POST http://localhost:6000/users/
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRhdmlkIiwiaWF0IjoxNjM5MTQ5MTA4fQ.4xSoGFtAewEkOGdR8_h_DuHlZirohNjUhWHvaplODPs
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRhdmlkIiwiaWF0IjoxNjM5MTUwMTU2fQ.B-7sFngWn0cvqAhj-ahjan25MQOqlVubOBJX8t1SA_c
 
 
 ###
 
 GET http://localhost:6000/users/
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRhdmlkIiwiaWF0IjoxNjM5MTQ5MTA4fQ.4xSoGFtAewEkOGdR8_h_DuHlZirohNjUhWHvaplODPs
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRhdmlkIiwiaWF0IjoxNjM5MTUwMTU2fQ.B-7sFngWn0cvqAhj-ahjan25MQOqlVubOBJX8t1SA_c
 
 ###
