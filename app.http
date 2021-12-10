@@ -25,7 +25,6 @@ Content-Type: application/json
 
 POST http://localhost:6000/users/
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRhdmlkIiwiaWF0IjoxNjM5MTQyNzc3fQ.lKAS0Kk7v-mcnAlejcPQA41e7oEX_CqzL27-UnZm2P8
 
 
 ###
