@@ -46,7 +46,7 @@ const checkToken = (req, res, nxt) => {
     res.status(401);
     res.send("Invalid JWT Token");
   } else {
-    jwt.verify(jwtToken, "MY_SECRET_TOKEN", async (error, payload) => {
+    jwt.verify(jwtToken, "MY_SECRET_TOKENN", async (error, payload) => {
       if (error) {
         res.status(401);
         res.send("Invalid JWT Token");
@@ -110,8 +110,9 @@ app.post("/login", async (request, response) => {
       const payload = {
         username: username,
       };
-      const jwtToken = jwt.sign(payload, "MY_SECRET_TOKEN");
+      let jwtToken = jwt.sign(payload, "MY_SECRET_TOKENN");
       response.send({ jwtToken });
+      response.status(200);
     } else {
       response.status(400);
       response.send("Invalid password");
