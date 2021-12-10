@@ -3,6 +3,7 @@ const { open } = require("sqlite");
 const sqlite3 = require("sqlite3");
 const path = require("path");
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 const databasePath = path.join(__dirname, "userData.db");
@@ -81,19 +82,36 @@ app.post("/login", async (request, response) => {
       databaseUser.password
     );
     if (isPasswordMatched === true) {
-      response.send(databaseUser);
+      const payload = {
+        username: username,
+      };
+      const jwtToken = jwt.sign(payload, "MY_SECRET_TOKEN");
+      response.send({ jwtToken });
     } else {
       response.status(400);
-      response.send(databaseUser.error_msg);
+      response.send("Invalid password");
     }
   }
 });
 
-/* {
-  "username": "adam_richard",
-  "name": "Adam Richard",
-  "password": "richard_567",
-  "gender": "male",
-  "location": "Detroit"
-} */
+app.post("/users/", async (request, response) => {
+  const userDetails = request.body;
+  const values = userDetails.map(
+    (each) =>
+      `('${each.user_id}', '${each.id}', '${each.title}','${each.body}')`
+  );
+
+  const valuesString = values.join(",");
+
+  const addUserQuery = `
+    INSERT INTO
+      userData (user_id,id,title,body)
+    VALUES
+       ${valuesString};`;
+
+  const dbResponse = await db.run(addUserQuery);
+  const ItemId = dbResponse.lastID;
+  response.send({ ItemId: ItemId });
+});
+
 module.exports = app;
