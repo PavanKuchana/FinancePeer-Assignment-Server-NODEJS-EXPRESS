@@ -99,7 +99,7 @@ app.post("/data/", checkToken, async (req, res) => {
   gotData.forEach(async (each) => {
     const { userId, id, title, body } = each;
     const getDis = await db.run(`
-          INSERT INTO uploaded (user_id, id, title, body)
+          INSERT INTO userData (user_id, id, title, body)
           VALUES ('${userId}','${id}','${title}','${body}');
       `);
   });
