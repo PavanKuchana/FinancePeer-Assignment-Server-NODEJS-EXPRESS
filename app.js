@@ -55,7 +55,7 @@ const checkToken = (req, res, nxt) => {
   }
 };
 
-// API 1 - user login
+// User login
 app.post("/login/", async (req, res) => {
   const { username, password } = req.body;
   const isUser = await db.get(`
@@ -93,7 +93,7 @@ app.get("/get-user", async (req, res) => {
   });
 });
 
-//API 2 - send data to database from received file
+// Send data to database from received file
 app.post("/data/", checkToken, async (req, res) => {
   const gotData = req.body;
   gotData.forEach(async (each) => {
@@ -106,7 +106,7 @@ app.post("/data/", checkToken, async (req, res) => {
   res.send("success");
 });
 
-//API 3 - Register new user
+// Register new user
 app.post("/register/", async (req, res) => {
   const { username, fullname, password } = req.body;
   const isExist = await db.get(`
@@ -133,20 +133,12 @@ app.post("/register/", async (req, res) => {
   }
 });
 
-//API 4 - send stored data from database to frontend
+// Send stored data from database to frontend
 app.get("/return/", checkToken, async (req, res) => {
   const getFromDatabase = await db.all(`
     SELECT * FROM userData
     `);
   res.send({ getFromDatabase });
 });
-
-// test api
-app.get("/test", (req, res) => {
-  console.log("test done");
-  res.send("test text appering!!");
-});
-
-//ok nothing deleted
 
 module.exports = app;
