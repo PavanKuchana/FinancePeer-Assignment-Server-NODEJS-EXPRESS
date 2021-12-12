@@ -46,7 +46,7 @@ const checkToken = (req, res, nxt) => {
     res.status(401);
     res.send("Invalid JWT Token");
   } else {
-    jwt.verify(jwtToken, "MY_SECRET_TOKENN", async (error, payload) => {
+    jwt.verify(jwtToken, "MY_SECRET_TOKEN", async (error, payload) => {
       if (error) {
         res.status(401);
         res.send("Invalid JWT Token");
@@ -139,7 +139,7 @@ app.post("/users/", checkToken, async (request, response) => {
   response.send({ ItemId: ItemId });
 });
 
-app.get("/users/", checkToken, async (req, res) => {
+app.get("/usersData/", checkToken, async (req, res) => {
   const getFromDatabase = await database.all(`
     SELECT * FROM userData
     `);
